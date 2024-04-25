@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   template:`
     <main class="w-full h-[92vh] bg-white-400 rounded shadow-md p-2">
       <div class="w-full text-center p-2 shadow">
-        <h1 class="text-xl font-bold">Welcome to the details page</h1>
+        <h1 class="text-xl font-bold">Welcome to the details page{{housingId}}</h1>
       </div> 
      
        <div class="mt-2 p-2 flex justify-center">
@@ -95,6 +95,9 @@ import { CommonModule } from '@angular/common';
            </div>
 
            <div class="flex justify-end gap-2 shadow-md p-2 mt-5">
+            <button class="w-40 border p-2 rounded bg-cyan-300 text-white" (click)="Edit()">
+              Edit
+            </button>
             <button class="w-40 border p-2 rounded bg-cyan-300 text-white" (click)="apply()">
               Apply
             </button>
@@ -107,6 +110,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class HousingDetailsComponent {
+
   isOpen:boolean = false;
   housingId:number = 0;
   housingData: HousingLocationInterface | undefined = {
@@ -120,27 +124,33 @@ export class HousingDetailsComponent {
     laundry: false
 };
 
-//form control
-  form = new FormGroup({
-    firstname: new FormControl(""),
-    lastname: new FormControl(""),
-    email:new FormControl("")
-  });
+form: FormGroup
 
-  constructor(private route: ActivatedRoute, private housingService:HousingService){
-      this.housingId = Number(this.route.snapshot.params['id']);
-      this.housingData = this.housingService.getHousingLocationById(this.housingId);    
+  constructor(
+      private route: ActivatedRoute, 
+      private housingService:HousingService, 
+      private formgroup:HousingService
+    ){  
+      this.form = this.formgroup.getForm();  
   };
 
-  ngOnInit():void{
+  async ngOnInit():Promise<void>{
     // this.form.valueChanges.subscribe(value => {
     //   console.log(value); // Log form values when they change
     // });
+    this.housingId = Number(this.route.snapshot.params['id']);
+    let findDetails = this.housingService.getData()?.find((data)=>data.id === this.housingId);
+    this.housingData = findDetails;
   }
 
   apply(){
     let formData = this.form.value
     console.log("result", formData);
+    this.housingService.resetForm();
+  }
+
+  Edit(){
+    this.housingService.reassignForm("Augu", "norms", "myemail@gmail.com");
   }
 
   handlToggle():boolean{

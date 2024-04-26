@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
 import { HousingLocationInterface } from '../housing-location';
 import { HousingService } from '../housing.service';
-import { FormGroup } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HousingLocationComponent],
+  imports: [CommonModule, HousingLocationComponent, RouterLink],
   template:`
   <main class="w-full h-[92vh] p-2">
     <section class="w-full flex justify-center gap-5">
@@ -26,7 +27,13 @@ import { FormGroup } from '@angular/forms';
           search
         </Button>
       </div>
-      {{names.firstname}}
+
+      <div class="w-[10%]">
+        <Button class="w-full p-2 border rounded border-cyan-300" routerLink="about-page">
+          Area
+        </Button>
+      </div>
+     
     </section>
 
     <app-housing-location [Location]="housingLocation"/>

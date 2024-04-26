@@ -7,8 +7,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class HousingService {
 
-  housingList:HousingLocationInterface[] = [];
-
   form:FormGroup = new FormGroup({
     firstname: new FormControl(''),
     lastname: new FormControl(''),
@@ -21,13 +19,6 @@ export class HousingService {
     return this.form;
   }
 
-  setData(data:HousingLocationInterface[]):HousingLocationInterface[]{
-    return this.housingList = data;
-  }
-
-  getData():HousingLocationInterface[]{
-    return this.housingList;
-  }
 
   getFormValues(){
     return this.form.value;

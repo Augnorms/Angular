@@ -134,13 +134,34 @@ form: FormGroup
       this.form = this.formgroup.getForm();  
   };
 
-  async ngOnInit():Promise<void>{
+   ngOnInit(){
     // this.form.valueChanges.subscribe(value => {
     //   console.log(value); // Log form values when they change
     // });
+    
     this.housingId = Number(this.route.snapshot.params['id']);
-    let findDetails = this.housingService.getData()?.find((data)=>data.id === this.housingId);
-    this.housingData = findDetails;
+
+     this.getallhousingData();
+  }
+
+  url = "http://localhost:3000/Locations";
+
+  async getallhousingData(){
+    try {
+      const response = await fetch(this.url);
+
+      const data = await response.json() ?? []
+
+      if(data){
+        let findDetails = data.find((data:HousingLocationInterface)=>data.id == this.housingId);
+        this.housingData = findDetails;
+      }
+
+    } catch (error) {
+      console.error('Error loading housing locations:', error);
+    }finally{
+     //
+    }
   }
 
   apply(){

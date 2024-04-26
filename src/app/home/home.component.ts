@@ -64,7 +64,6 @@ export class HomeComponent {
 
       if(data){
         this.housingLocation = data
-        this.housingService.setData(data);
       }
 
     } catch (error) {

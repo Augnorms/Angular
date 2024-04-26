@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   template:`
     <main class="w-full h-[92vh] bg-white-400 rounded shadow-md p-2">
       <div class="w-full text-center p-2 shadow">
-        <h1 class="text-xl font-bold">Welcome to the details page{{housingId}}</h1>
+        <h1 class="text-xl font-bold">Welcome to the details page</h1>
       </div> 
      
        <div class="mt-2 p-2 flex justify-center">
